@@ -10,7 +10,11 @@ const userRoutes = require('./routes/user');
 const adminRoutes = require("./routes/admin");
 
 
-mongoose.connect('mongodb://'+process.env.MONGO_MLAB_US+':'+process.env.MONGO_MLAB_PW+'@ds229609.mlab.com:29609/todo');
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
 
 mongoose.Promise = global.Promise;
 
@@ -30,6 +34,10 @@ app.use((req, res, next) => {
     return res.status(200).json({});
   }
   next();
+});
+
+app.get("/", (req, res) => {
+  res.json({ message: "Backend API is running" });
 });
 
 // Routes which should handle requests
