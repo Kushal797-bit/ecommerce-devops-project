@@ -39,6 +39,13 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.json({ message: "Backend API is running" });
 });
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    message: "Server is healthy"
+  });
+});
+
 
 // Routes which should handle requests
 app.use("/products", productRoutes);
